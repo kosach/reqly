@@ -1,0 +1,30 @@
+{
+  "name": "reqly",
+  "version": "0.1.0",
+  "description": "AI-first API testing tool with MCP protocol",
+  "private": true,
+  "scripts": {
+    "dev": "pnpm --filter @reqly/desktop dev",
+    "build": "pnpm --filter @reqly/desktop build",
+    "test": "pnpm -r test",
+    "lint": "pnpm -r lint",
+    "typecheck": "pnpm -r typecheck"
+  },
+  "keywords": [
+    "api-testing",
+    "mcp",
+    "postman-alternative",
+    "ai-first"
+  ],
+  "author": "Andrii Kosach <kosach.a@gmail.com>",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/kosach/reqly.git"
+  },
+  "engines": {
+    "node": ">=18.0.0",
+    "pnpm": ">=8.0.0"
+  },
+  "packageManager": "pnpm@8.15.0"
+}

@@ -126,18 +126,48 @@ Build:       Vite + pnpm
 ## 📁 Project Structure
 
 ```
-reqly/
-├── README.md                          # This file
-├── research/                          # Research (Gemini agents)
-│   ├── postman-features.md           # Feature audit
-│   ├── mcp-protocol.md               # MCP deep dive
-│   ├── tech-stack-options.md         # Stack evaluation
-│   └── architecture-draft.md         # System design
-└── reviews/                           # Recommendations (Claude agents)
-    ├── postman-features-categorized.md   # MVP prioritization
-    ├── mcp-integration-design.md         # MCP architecture
-    └── tech-stack-recommendation.md      # Final tech decision
+reqly/                                 # Monorepo root
+├── apps/
+│   └── desktop/                      # Tauri + React desktop app
+├── packages/
+│   ├── types/                        # Shared TypeScript types
+│   ├── mcp-server/                   # MCP protocol server
+│   └── database/                     # SQLite database layer
+├── docs/
+│   ├── research/                     # Research (Gemini agents)
+│   │   ├── postman-features.md      # Feature audit
+│   │   ├── mcp-protocol.md          # MCP deep dive
+│   │   ├── tech-stack-options.md    # Stack evaluation
+│   │   └── architecture-draft.md    # System design
+│   └── reviews/                      # Recommendations (Claude agents)
+│       ├── postman-features-categorized.md   # MVP prioritization
+│       ├── mcp-integration-design.md         # MCP architecture
+│       └── tech-stack-recommendation.md      # Final tech decision
+├── pnpm-workspace.yaml               # pnpm workspace config
+├── package.json                      # Root package.json
+└── CONTRIBUTING.md                   # Development guide
 ```
+
+---
+
+## 🚀 Quick Start
+
+```bash
+# Clone repository
+git clone https://github.com/kosach/reqly.git
+cd reqly
+
+# Install dependencies (requires pnpm 8+)
+pnpm install
+
+# Build all packages
+pnpm build
+
+# Run desktop app in development
+pnpm dev
+```
+
+See [CONTRIBUTING.md](CONTRIBUTING.md) for detailed development guide.
 
 ---
 
