@@ -382,7 +382,7 @@ Execute all requests in a collection sequentially.
 ### Import/Export
 
 #### `importCollection`
-Import from Postman, OpenAPI, Insomnia, etc.
+Import from popular formats: OpenAPI, Insomnia, etc.
 
 **Arguments:**
 ```json
@@ -1019,12 +1019,12 @@ Every MCP tool call logged:
   - `create-test-suite`
   - `monitor-api-health`
 - Import/export tools:
-  - `importCollection` (Postman, OpenAPI, Insomnia)
+  - `importCollection` (OpenAPI, Insomnia, various formats)
   - `exportCollection` (multiple formats)
 - Response analysis (schema detection, performance anomalies)
 
 **Success Criteria:**
-- AI can import Postman collection and generate tests
+- AI can import collections and generate tests
 - Prompts guide AI through complex workflows
 - Import success rate >95% for common formats
 
@@ -1141,7 +1141,7 @@ Would you like me to:
 ### Workflow 3: Import and Enhance
 
 ```
-User: "Import this Postman collection and add performance tests."
+User: "Import this API collection and add performance tests."
 
 AI:
 1. importCollection(format="postman", data="<JSON>")
@@ -1161,7 +1161,7 @@ AI:
 5. runCollection(collectionId="xyz-789")
    → 15/15 passed, avg response time: 320ms
 
-AI: "✅ Imported 15 requests from Postman. Added performance tests to all endpoints. 
+AI: "✅ Imported 15 requests. Added performance tests to all endpoints. 
 Current average response time: 320ms. All tests passing!"
 ```
 

@@ -211,7 +211,7 @@ interface MCPResources {
 - CRUD operations (collections, requests, environments)
 - Variable interpolation (`{{VAR}}` → resolved value)
 - Test execution orchestration
-- Import/export logic (Postman, OpenAPI, Insomnia)
+- Import/export logic (OpenAPI, Insomnia, various formats)
 - Secret encryption/decryption (AES-256-GCM)
 - Database migrations
 - Request history management
@@ -837,7 +837,7 @@ pm.request.headers['X-Timestamp'] = timestamp.toString();
 **Technology:**
 - VM2 (Node.js sandbox)
 - Chai.js (BDD/TDD assertion library)
-- Custom `pm` API (Postman-compatible)
+- Custom `pm` API (industry-standard scripting API)
 
 **Responsibilities:**
 - Execute user-provided JavaScript safely
@@ -2146,7 +2146,7 @@ This architecture delivers an **AI-first API testing tool** where:
 
 **Key Differentiators:**
 
-1. **MCP-native** - Not "Postman + AI features", but "AI interface + optional UI"
+1. **MCP-native** - AI interface first, with optional UI for human oversight
 2. **Local-first** - No cloud dependency, user owns their data
 3. **Lightweight** - 20x smaller than Electron-based alternatives
 4. **Modern stack** - Latest TypeScript, React, Tauri, Drizzle ORM
@@ -2163,5 +2163,5 @@ This architecture delivers an **AI-first API testing tool** where:
 
 **Document Status:** ✅ Draft Complete  
 **Next Action:** Architecture Review Meeting  
-**Contact:** subagent:postman-phase7-architecture-draft
+**Contact:** subagent:architecture-draft
 

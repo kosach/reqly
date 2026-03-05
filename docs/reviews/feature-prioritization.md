@@ -1,4 +1,4 @@
-# Postman Features - Prioritized for AI-First API Testing Tool
+# Feature Prioritization for AI-First API Testing Tool
 
 **Total Features Audited:** 350+
 
@@ -63,7 +63,7 @@
 ### Testing & Validation (Basic)
 - ✅ **Test Scripts** - JavaScript test code using Chai.js assertions
 - ✅ **Pre-request Scripts** - Execute code before sending requests
-- ✅ **Postman Sandbox** - Secure JavaScript execution environment
+- ✅ **JavaScript Sandbox** - Secure JavaScript execution environment
 - ✅ **pm.test()** - Write test assertions
 - ✅ **pm.expect()** - BDD-style assertions
 - ✅ **pm.response** - Access response data in tests
@@ -171,7 +171,7 @@
 
 ### CLI & Automation
 - ⏳ **Newman** - Command-line collection runner (npm package)
-- ⏳ **Postman CLI** - Official CLI for running collections
+- ⏳ **CLI Tool** - Command-line interface for running collections
 - ⏳ **CI/CD Integration** - Jenkins, GitHub Actions, GitLab CI, CircleCI
 - ⏳ **Custom Reporters** - HTML, JSON, CLI, JUnit XML reporters
 - ⏳ **Exit Codes** - Return status for CI/CD pipeline integration
@@ -255,7 +255,7 @@
 ### Advanced Documentation
 - 🔜 **Custom Domain** - Use your own domain for docs
 - 🔜 **Documentation Themes** - Customize appearance
-- 🔜 **Run in Postman Button** - Embeddable button for websites
+- 🔜 **Embeddable Import Button** - Widget for importing collections from websites
 - 🔜 **Documentation Versioning** - Version-specific documentation
 - 🔜 **Fern Integration** - Generate enterprise-grade docs and SDKs
 
@@ -325,7 +325,7 @@
 ### Advanced Automation
 - 🔜 **Scheduled Runs** - Cron-like scheduled collection runs
 - 🔜 **Webhooks** - Trigger collections via HTTP webhooks
-- 🔜 **API for Automation** - Postman API for programmatic control
+- 🔜 **API for Automation** - REST API for programmatic control
 - 🔜 **Docker Images** - Official Newman Docker images
 - 🔜 **Parallel Execution** - Run collections in parallel
 
@@ -353,7 +353,7 @@
 - 🔜 **Test Reports** - Detailed test run reports
 - 🔜 **HTML Reports** - Visual test result reports
 - 🔜 **JUnit XML Reports** - CI-compatible reports
-- 🔜 **Custom Reports** - Build reports with Postman API
+- 🔜 **Custom Reports** - Build custom reports with API
 - 🔜 **Export Reports** - Download reports as files
 - 🔜 **Team Activity** - Track team usage patterns
 - 🔜 **Team Reporting** - Advanced analytics
@@ -367,8 +367,8 @@
 - 🔜 **Selective Sync** - Choose what to sync
 - 🔜 **Team Management** - Invite users, manage roles
 - 🔜 **Community Support** - Forums and community help
-- 🔜 **Learning Resources** - Tutorials, courses (Postman Academy)
-- 🔜 **Postman Public Workspaces** - Explore community workspaces
+- 🔜 **Learning Resources** - Tutorials, courses, documentation
+- 🔜 **Public Workspaces** - Explore community-shared workspaces
 - 🔜 **Publish to API Network** - Share APIs in public directory
 
 **Backlog Feature Count: ~200+ features**
@@ -448,4 +448,4 @@ Since this is an **AI-first tool with MCP as the primary interface**:
 
 **Document Status:** Complete ✅  
 **Last Updated:** 2026-03-04  
-**Reviewer:** AI Subagent (postman-phase2-review)
+**Reviewer:** AI Subagent (feature-prioritization)

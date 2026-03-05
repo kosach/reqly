@@ -750,7 +750,7 @@ jobs:
 ---
 
 ### Week 11-12: Import/Export & Polish
-- [ ] Import Postman collections
+- [ ] Import from popular formats (JSON collections)
 - [ ] Import OpenAPI specs
 - [ ] Export to various formats
 - [ ] MCP prompts (debug-api-endpoint, create-test-suite)
@@ -794,7 +794,7 @@ jobs:
 ✅ AI can send requests and view responses  
 ✅ AI can create environments and set variables  
 ✅ AI can write and run tests  
-✅ AI can import Postman collections  
+✅ AI can import collections from popular formats  
 ✅ Human can view/edit requests in UI  
 ✅ Works offline (local-first)  
 ✅ Runs on Windows, macOS, Linux  
@@ -839,4 +839,4 @@ This is a **pragmatic choice** that prioritizes shipping quickly over theoretica
 
 **Document Status:** ✅ Final Recommendation  
 **Next Action:** Stakeholder review → Initialize repository → Begin Week 1  
-**Questions:** Contact subagent:postman-phase6-stack-recommendation
+**Questions:** Contact subagent:tech-stack-recommendation

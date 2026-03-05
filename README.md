@@ -1,7 +1,7 @@
 # Reqly
 ## AI-First API Testing Tool with MCP Protocol
 
-*Request elegantly* — AI-native alternative to Postman with focus on Model Context Protocol (MCP).
+*Request elegantly* — AI-native API testing and development platform built on Model Context Protocol (MCP).
 
 **Research Date:** March 4-5, 2026  
 **Duration:** 6 hours (21:00 → 03:28)  
@@ -9,43 +9,58 @@
 
 ---
 
+## 🎯 What is Reqly?
+
+Reqly is a modern API testing tool designed from the ground up for AI collaboration. Unlike traditional GUI-first tools, Reqly treats AI agents as first-class users through the Model Context Protocol, while providing an elegant desktop interface for human developers.
+
+### Key Features
+
+- **MCP-First Architecture** — AI agents can create, test, and debug APIs through structured protocol
+- **Local-First** — All data stored locally in SQLite, works offline
+- **High Performance** — Handles 1000+ API collections without lag using virtualization and caching
+- **Lightweight** — Native desktop app (15-30 MB) built with Tauri + React
+- **Type-Safe** — Full TypeScript stack with shared types across frontend and backend
+- **Developer-Friendly** — Built by developers, for developers
+
+---
+
 ## 📋 Documentation
 
 ### 🔍 Research (Gemini agents)
 
-1. **[postman-features.md](research/postman-features.md)** (21 KB)
-   - Complete Postman feature audit (350+ features)
+1. **[api-testing-features.md](docs/research/api-testing-features.md)** (21 KB)
+   - Complete API testing feature analysis (350+ features)
    - Organized by categories: requests, collections, auth, testing, collaboration
 
-2. **[mcp-protocol.md](research/mcp-protocol.md)** (32 KB)  
+2. **[mcp-protocol.md](docs/research/mcp-protocol.md)** (32 KB)  
    - Deep dive into Model Context Protocol
    - Tools, Resources, Prompts architecture
    - Limitations and capabilities
 
-3. **[tech-stack-options.md](research/tech-stack-options.md)** (25 KB)
+3. **[tech-stack-options.md](docs/research/tech-stack-options.md)** (25 KB)
    - Backend frameworks comparison (Go, Rust, Node.js, Python)
    - Database options (SQLite, PostgreSQL, IndexedDB)
    - UI approaches (Electron, Tauri, PWA)
 
-4. **[architecture-draft.md](research/architecture-draft.md)** (59 KB)
+4. **[architecture-draft.md](docs/research/architecture-draft.md)** (59 KB)
    - Complete system architecture
    - Database schema, API endpoints
    - Performance optimizations, monitoring
 
 ### ✅ Reviews & Recommendations (Claude agents)
 
-1. **[postman-features-categorized.md](reviews/postman-features-categorized.md)** (22 KB)
+1. **[feature-prioritization.md](docs/reviews/feature-prioritization.md)** (22 KB)
    - MVP features (60)
    - Phase 2 features (85)  
    - Backlog (200+)
    - Priority scoring
 
-2. **[mcp-integration-design.md](reviews/mcp-integration-design.md)** (27 KB)
+2. **[mcp-integration-design.md](docs/reviews/mcp-integration-design.md)** (27 KB)
    - MCP as PRIMARY interface
    - 15 core tools (createCollection, sendRequest, writeTest, etc.)
    - Resources and Prompts design
 
-3. **[tech-stack-recommendation.md](reviews/tech-stack-recommendation.md)** (25 KB)  
+3. **[tech-stack-recommendation.md](docs/reviews/tech-stack-recommendation.md)** (25 KB)  
    - **Recommended stack:** Node.js + SQLite + Tauri
    - Time to MVP: 8-12 weeks
    - Performance target: 1000+ collections
@@ -66,7 +81,7 @@ Build:       Vite + pnpm
 **Why this stack:**
 - ✅ MCP TypeScript SDK is the most mature (reference implementation)
 - ✅ Faster development (2-3x faster than Go/Rust)
-- ✅ Lightweight bundle (15-30 MB vs 150-200 MB Electron)
+- ✅ Lightweight bundle (15-30 MB vs 150+ MB for Electron-based apps)
 - ✅ Local-first (SQLite, works offline)
 - ✅ Handles 1000+ collections without lag (virtualization + cache)
 
@@ -76,9 +91,9 @@ Build:       Vite + pnpm
 
 1. **MCP-First Design** — AI agents are first-class users, UI is secondary
 2. **Local-First** — All data on user's machine (SQLite)
-3. **Performance** — Handle 1000+ collections without lag (unlike Postman)
-4. **Type-Safe** — TypeScript full-stack
-5. **Lightweight** — 10x lighter than Postman
+3. **Performance** — Handle 1000+ collections smoothly with virtualization and caching
+4. **Type-Safe** — TypeScript full-stack with shared types
+5. **Lightweight** — Native WebView, minimal bundle size
 
 ---
 
@@ -115,11 +130,11 @@ Build:       Vite + pnpm
 
 ## 📈 Performance Targets
 
-- Startup time: <2 sec (vs 5-10 sec Postman)
+- Startup time: <2 sec
 - Render 1000 collections: <500ms (virtualized list)
 - Request send latency: <50ms overhead
-- Memory usage: 150-200 MB (vs 400-800 MB Postman)
-- Bundle size: 15-30 MB (vs 150-200 MB Postman)
+- Memory usage: 150-200 MB for typical workload
+- Bundle size: 15-30 MB
 
 ---
 
@@ -135,14 +150,14 @@ reqly/                                 # Monorepo root
 │   └── database/                     # SQLite database layer
 ├── docs/
 │   ├── research/                     # Research (Gemini agents)
-│   │   ├── postman-features.md      # Feature audit
+│   │   ├── api-testing-features.md  # Feature analysis
 │   │   ├── mcp-protocol.md          # MCP deep dive
 │   │   ├── tech-stack-options.md    # Stack evaluation
 │   │   └── architecture-draft.md    # System design
 │   └── reviews/                      # Recommendations (Claude agents)
-│       ├── postman-features-categorized.md   # MVP prioritization
-│       ├── mcp-integration-design.md         # MCP architecture
-│       └── tech-stack-recommendation.md      # Final tech decision
+│       ├── feature-prioritization.md        # MVP prioritization
+│       ├── mcp-integration-design.md        # MCP architecture
+│       └── tech-stack-recommendation.md     # Final tech decision
 ├── pnpm-workspace.yaml               # pnpm workspace config
 ├── package.json                      # Root package.json
 └── CONTRIBUTING.md                   # Development guide
@@ -173,26 +188,25 @@ See [CONTRIBUTING.md](CONTRIBUTING.md) for detailed development guide.
 
 ## 💡 Why Reqly?
 
-**Postman Problems:**
-1. ❌ Lags with large collections (>500)
-2. ❌ Heavy (150-200 MB, 400-800 MB RAM)
-3. ❌ Not optimized for AI/automation
-4. ❌ Slow startup (5-10 sec)
-5. ❌ Electron overhead
+**Modern API Development Challenges:**
+1. ❌ Existing tools lag with large collections (>500 requests)
+2. ❌ Heavy desktop apps (150-200 MB, 400-800 MB RAM)
+3. ❌ Not optimized for AI/automation workflows
+4. ❌ Slow startup times (5-10 seconds)
+5. ❌ Inefficient rendering of large datasets
 
 **Reqly Solutions:**
-1. ✅ Virtual lists + cache → 1000+ collections smooth
-2. ✅ Tauri (15-30 MB) + optimized SQLite
-3. ✅ MCP-first — AI can work without GUI
-4. ✅ Instant startup (<2 sec)
-5. ✅ Native WebView (lower memory)
+1. ✅ Virtual lists + intelligent caching → smooth performance with 1000+ collections
+2. ✅ Lightweight native app (15-30 MB) using Tauri + optimized SQLite
+3. ✅ MCP-first design — AI agents can work independently through structured protocol
+4. ✅ Instant startup (<2 seconds) with lazy loading
+5. ✅ Virtualized rendering with WebView optimization
 
 ---
 
 ## 🔗 References
 
 - **MCP Spec:** https://spec.modelcontextprotocol.io/
-- **Postman API:** https://www.postman.com/  
 - **Tauri:** https://tauri.app/
 - **SQLite:** https://www.sqlite.org/
 
