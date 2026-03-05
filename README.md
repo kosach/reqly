@@ -1,58 +1,58 @@
 # Reqly
 ## AI-First API Testing Tool with MCP Protocol
 
-*Request elegantly* — AI-native альтернатива Postman з фокусом на Model Context Protocol (MCP).
+*Request elegantly* — AI-native alternative to Postman with focus on Model Context Protocol (MCP).
 
-**Дата дослідження:** 4-5 березня 2026  
-**Тривалість:** 6 годин (21:00 → 03:28)  
-**Команда:** Multi-agent дослідження (Gemini + Claude)
+**Research Date:** March 4-5, 2026  
+**Duration:** 6 hours (21:00 → 03:28)  
+**Team:** Multi-agent research (Gemini + Claude)
 
 ---
 
-## 📋 Зміст документації
+## 📋 Documentation
 
-### 🔍 Дослідження (Research)
+### 🔍 Research (Gemini agents)
 
 1. **[postman-features.md](research/postman-features.md)** (21 KB)
-   - Повний аудит можливостей Postman (350+ features)
-   - Організовано по категоріях: requests, collections, auth, testing, collaboration
+   - Complete Postman feature audit (350+ features)
+   - Organized by categories: requests, collections, auth, testing, collaboration
 
 2. **[mcp-protocol.md](research/mcp-protocol.md)** (32 KB)  
-   - Глибокий розбір Model Context Protocol
+   - Deep dive into Model Context Protocol
    - Tools, Resources, Prompts architecture
-   - Обмеження та можливості
+   - Limitations and capabilities
 
 3. **[tech-stack-options.md](research/tech-stack-options.md)** (25 KB)
-   - Порівняння backend frameworks (Go, Rust, Node.js, Python)
-   - Database опції (SQLite, PostgreSQL, IndexedDB)
-   - UI підходи (Electron, Tauri, PWA)
+   - Backend frameworks comparison (Go, Rust, Node.js, Python)
+   - Database options (SQLite, PostgreSQL, IndexedDB)
+   - UI approaches (Electron, Tauri, PWA)
 
 4. **[architecture-draft.md](research/architecture-draft.md)** (59 KB)
-   - Повна архітектура системи
+   - Complete system architecture
    - Database schema, API endpoints
    - Performance optimizations, monitoring
 
-### ✅ Рекомендації (Reviews)
+### ✅ Reviews & Recommendations (Claude agents)
 
 1. **[postman-features-categorized.md](reviews/postman-features-categorized.md)** (22 KB)
    - MVP features (60)
    - Phase 2 features (85)  
    - Backlog (200+)
-   - Пріоритизація по важливості
+   - Priority scoring
 
 2. **[mcp-integration-design.md](reviews/mcp-integration-design.md)** (27 KB)
-   - MCP як PRIMARY interface
+   - MCP as PRIMARY interface
    - 15 core tools (createCollection, sendRequest, writeTest, etc.)
-   - Resources та Prompts дизайн
+   - Resources and Prompts design
 
 3. **[tech-stack-recommendation.md](reviews/tech-stack-recommendation.md)** (25 KB)  
-   - **Рекомендований стек:** Node.js + SQLite + Tauri
-   - Time to MVP: 8-12 тижнів
+   - **Recommended stack:** Node.js + SQLite + Tauri
+   - Time to MVP: 8-12 weeks
    - Performance target: 1000+ collections
 
 ---
 
-## 🏆 Рекомендований Tech Stack
+## 🏆 Recommended Tech Stack
 
 ```
 Backend:     Node.js 18+ (TypeScript) + MCP TypeScript SDK
@@ -63,28 +63,28 @@ Testing:     Vitest + Playwright
 Build:       Vite + pnpm
 ```
 
-**Переваги:**
-- ✅ MCP TypeScript SDK — найзріліший (reference implementation)
-- ✅ Швидкий розвиток (2-3x швидше Go/Rust)
-- ✅ Легкий bundle (15-30 MB vs 150-200 MB Electron)
-- ✅ Local-first (SQLite, працює offline)
-- ✅ Handles 1000+ collections без лагів (virtualization + cache)
+**Why this stack:**
+- ✅ MCP TypeScript SDK is the most mature (reference implementation)
+- ✅ Faster development (2-3x faster than Go/Rust)
+- ✅ Lightweight bundle (15-30 MB vs 150-200 MB Electron)
+- ✅ Local-first (SQLite, works offline)
+- ✅ Handles 1000+ collections without lag (virtualization + cache)
 
 ---
 
-## 🎯 Ключові принципи
+## 🎯 Core Principles
 
-1. **MCP-First Design** — AI агенти first-class users, UI secondary
-2. **Local-First** — всі дані на машині користувача (SQLite)
-3. **Performance** — 1000+ колекцій без підвисань (на відміну від Postman)
+1. **MCP-First Design** — AI agents are first-class users, UI is secondary
+2. **Local-First** — All data on user's machine (SQLite)
+3. **Performance** — Handle 1000+ collections without lag (unlike Postman)
 4. **Type-Safe** — TypeScript full-stack
-5. **Lightweight** — 10x легше Postman
+5. **Lightweight** — 10x lighter than Postman
 
 ---
 
 ## 📊 MVP Scope
 
-**Core Features (Phase 1, 8-12 тижнів):**
+**Core Features (Phase 1, 8-12 weeks):**
 - HTTP requests (GET/POST/PUT/DELETE/PATCH)
 - Collections + folders (nested organization)  
 - Environments + variables
@@ -94,7 +94,7 @@ Build:       Vite + pnpm
 - Response viewer (JSON/XML/HTML)
 - Request history
 
-**Phase 2 (наступні 2-3 місяці):**
+**Phase 2 (next 2-3 months):**
 - OAuth 2.0 flow
 - Collection runner + data files
 - GraphQL support
@@ -123,17 +123,17 @@ Build:       Vite + pnpm
 
 ---
 
-## 📁 Структура проекту
+## 📁 Project Structure
 
 ```
 reqly/
-├── README.md                          # Цей файл
-├── research/                          # Дослідження (Gemini agents)
+├── README.md                          # This file
+├── research/                          # Research (Gemini agents)
 │   ├── postman-features.md           # Feature audit
 │   ├── mcp-protocol.md               # MCP deep dive
 │   ├── tech-stack-options.md         # Stack evaluation
 │   └── architecture-draft.md         # System design
-└── reviews/                           # Рекомендації (Claude agents)
+└── reviews/                           # Recommendations (Claude agents)
     ├── postman-features-categorized.md   # MVP prioritization
     ├── mcp-integration-design.md         # MCP architecture
     └── tech-stack-recommendation.md      # Final tech decision
@@ -141,25 +141,25 @@ reqly/
 
 ---
 
-## 💡 Чому це потрібно?
+## 💡 Why Reqly?
 
-**Проблеми Postman:**
-1. ❌ Лагає з великою кількістю колекцій (>500)
-2. ❌ Важкий (150-200 MB, 400-800 MB RAM)
-3. ❌ Не оптимізований для AI/automation
-4. ❌ Повільний startup (5-10 sec)
+**Postman Problems:**
+1. ❌ Lags with large collections (>500)
+2. ❌ Heavy (150-200 MB, 400-800 MB RAM)
+3. ❌ Not optimized for AI/automation
+4. ❌ Slow startup (5-10 sec)
 5. ❌ Electron overhead
 
-**Наше рішення:**
-1. ✅ Virtual lists + cache → 1000+ колекцій smooth
+**Reqly Solutions:**
+1. ✅ Virtual lists + cache → 1000+ collections smooth
 2. ✅ Tauri (15-30 MB) + optimized SQLite
-3. ✅ MCP-first — AI може працювати без GUI
+3. ✅ MCP-first — AI can work without GUI
 4. ✅ Instant startup (<2 sec)
 5. ✅ Native WebView (lower memory)
 
 ---
 
-## 🔗 Посилання
+## 🔗 References
 
 - **MCP Spec:** https://spec.modelcontextprotocol.io/
 - **Postman API:** https://www.postman.com/  
@@ -168,11 +168,12 @@ reqly/
 
 ---
 
-## 📝 Ліцензія
+## 📝 License
 
-TBD (можливо MIT або Apache 2.0)
+TBD (likely MIT or Apache 2.0)
 
 ---
 
-**Створено:** Multi-agent дослідження OpenClaw  
-**Статус:** Дослідження завершено, готово до імплементації
+**Created by:** Multi-agent research (OpenClaw)  
+**Status:** Research complete, ready for implementation  
+**Tagline:** *Request elegantly* 🚀
