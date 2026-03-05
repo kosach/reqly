@@ -1,7 +1,7 @@
-# AI-First API Testing Tool
-## Postman Alternative with MCP Protocol
+# Reqly
+## AI-First API Testing Tool with MCP Protocol
 
-Дослідження та проектування AI-first альтернативи Postman з фокусом на Model Context Protocol (MCP).
+*Request elegantly* — AI-native альтернатива Postman з фокусом на Model Context Protocol (MCP).
 
 **Дата дослідження:** 4-5 березня 2026  
 **Тривалість:** 6 годин (21:00 → 03:28)  
@@ -126,7 +126,7 @@ Build:       Vite + pnpm
 ## 📁 Структура проекту
 
 ```
-postman-alternative/
+reqly/
 ├── README.md                          # Цей файл
 ├── research/                          # Дослідження (Gemini agents)
 │   ├── postman-features.md           # Feature audit
