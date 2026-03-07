@@ -22,3 +22,9 @@ export type {
   ScriptResult,
   TestScriptResult,
 } from './scripts';
+
+export {
+  applyAuth,
+  applyAuthToUrl,
+  validateAuth,
+} from './auth';

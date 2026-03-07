@@ -7,11 +7,13 @@ import axios, { AxiosError, AxiosRequestConfig, AxiosResponse } from 'axios';
 import type { Request, Response, Environment, Variable, AuthConfig } from '@reqly/types';
 import { interpolateVariables } from './variables';
 import { executePreRequestScript } from './scripts';
+import { applyAuth, applyAuthToUrl } from './auth';
 
 export interface RequestContext {
   request: Request;
   environment?: Environment;
   collectionVariables?: Variable[];
+  collectionAuth?: AuthConfig;
   preRequestScript?: string;
   testScript?: string;
 }
@@ -78,14 +80,21 @@ export class HTTPClient {
       }
 
       // Interpolate variables in URL, headers, and body
-      const interpolatedUrl = interpolateVariables(context.request.url, scriptEnvironment);
-      const interpolatedHeaders = this.interpolateHeaders(
+      let interpolatedUrl = interpolateVariables(context.request.url, scriptEnvironment);
+      let interpolatedHeaders = this.interpolateHeaders(
         context.request.headers,
         scriptEnvironment
       );
       const interpolatedBody = context.request.body
         ? interpolateVariables(context.request.body, scriptEnvironment)
         : undefined;
+
+      // Apply authentication (collection-level)
+      if (context.collectionAuth) {
+        interpolatedHeaders = applyAuth(interpolatedHeaders, context.collectionAuth);
+        interpolatedUrl = applyAuthToUrl(interpolatedUrl, context.collectionAuth);
+        logs.push(`[${new Date().toISOString()}] Applied ${context.collectionAuth.type} authentication`);
+      }
 
       logs.push(`[${new Date().toISOString()}] Interpolated URL: ${interpolatedUrl}`);
 

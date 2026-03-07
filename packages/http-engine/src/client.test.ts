@@ -413,6 +413,129 @@ describe('HTTPClient E2E Tests', () => {
     });
   });
 
+  describe('Authentication', () => {
+    it('should apply bearer token authentication', async () => {
+      const result = await client.sendRequest({
+        request: {
+          id: 'req-1',
+          name: 'Test Request',
+          method: 'GET',
+          url: 'https://httpbin.org/bearer',
+          headers: {},
+          createdAt: new Date(),
+          updatedAt: new Date(),
+        },
+        collectionAuth: {
+          type: 'bearer',
+          bearer: { token: 'test-bearer-token' },
+        },
+      });
+
+      expect(result.response.status).toBe(200);
+      const responseData = JSON.parse(result.response.body);
+      expect(responseData.token).toBe('test-bearer-token');
+      expect(result.logs.some(log => log.includes('Applied bearer authentication'))).toBe(true);
+    });
+
+    it('should apply basic authentication', async () => {
+      const result = await client.sendRequest({
+        request: {
+          id: 'req-1',
+          name: 'Test Request',
+          method: 'GET',
+          url: 'https://httpbin.org/basic-auth/testuser/testpass',
+          headers: {},
+          createdAt: new Date(),
+          updatedAt: new Date(),
+        },
+        collectionAuth: {
+          type: 'basic',
+          basic: { username: 'testuser', password: 'testpass' },
+        },
+      });
+
+      expect(result.response.status).toBe(200);
+      const responseData = JSON.parse(result.response.body);
+      expect(responseData.authenticated).toBe(true);
+      expect(responseData.user).toBe('testuser');
+    });
+
+    it('should apply API key in headers', async () => {
+      const result = await client.sendRequest({
+        request: {
+          id: 'req-1',
+          name: 'Test Request',
+          method: 'GET',
+          url: 'https://httpbin.org/headers',
+          headers: {},
+          createdAt: new Date(),
+          updatedAt: new Date(),
+        },
+        collectionAuth: {
+          type: 'api-key',
+          apiKey: { key: 'X-API-Key', value: 'secret-key-123', in: 'header' },
+        },
+      });
+
+      expect(result.response.status).toBe(200);
+      const responseData = JSON.parse(result.response.body);
+      expect(responseData.headers['X-Api-Key']).toBe('secret-key-123');
+    });
+
+    it('should apply API key in query params', async () => {
+      const result = await client.sendRequest({
+        request: {
+          id: 'req-1',
+          name: 'Test Request',
+          method: 'GET',
+          url: 'https://httpbin.org/get',
+          headers: {},
+          createdAt: new Date(),
+          updatedAt: new Date(),
+        },
+        collectionAuth: {
+          type: 'api-key',
+          apiKey: { key: 'api_key', value: 'secret-query-key', in: 'query' },
+        },
+      });
+
+      expect(result.response.status).toBe(200);
+      const responseData = JSON.parse(result.response.body);
+      expect(responseData.args.api_key).toBe('secret-query-key');
+    });
+
+    it('should combine auth with variable interpolation', async () => {
+      const environment: Environment = {
+        id: 'env-1',
+        name: 'Test',
+        variables: [{ key: 'username', value: 'john', type: 'default' }],
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      };
+
+      const result = await client.sendRequest({
+        request: {
+          id: 'req-1',
+          name: 'Test Request',
+          method: 'GET',
+          url: 'https://httpbin.org/basic-auth/{{username}}/mypassword',
+          headers: {},
+          createdAt: new Date(),
+          updatedAt: new Date(),
+        },
+        environment,
+        collectionAuth: {
+          type: 'basic',
+          basic: { username: 'john', password: 'mypassword' },
+        },
+      });
+
+      expect(result.response.status).toBe(200);
+      const responseData = JSON.parse(result.response.body);
+      expect(responseData.authenticated).toBe(true);
+    });
+  });
+
   describe('Content Types', () => {
     it('should handle form-data', async () => {
       const formData = new URLSearchParams();
