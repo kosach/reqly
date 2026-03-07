@@ -536,6 +536,122 @@ describe('HTTPClient E2E Tests', () => {
     });
   });
 
+  describe('Test Scripts', () => {
+    it('should execute test scripts with assertions', async () => {
+      const testScript = `
+        pm.test('Status is 200', () => {
+          pm.response.to.have.status(200);
+        });
+
+        pm.test('Response has URL field', () => {
+          const json = pm.response.json();
+          pm.expect(json).to.have.property('url');
+        });
+      `;
+
+      const result = await client.sendRequest({
+        request: {
+          id: 'req-1',
+          name: 'Test Request',
+          method: 'GET',
+          url: 'https://httpbin.org/get',
+          headers: {},
+          createdAt: new Date(),
+          updatedAt: new Date(),
+        },
+        testScript,
+      });
+
+      expect(result.response.status).toBe(200);
+      expect(result.scriptOutput?.test).toBeDefined();
+      expect(result.scriptOutput?.test?.length).toBe(2);
+      expect(result.scriptOutput?.test?.[0].passed).toBe(true);
+      expect(result.scriptOutput?.test?.[1].passed).toBe(true);
+    });
+
+    it('should fail tests when assertions fail', async () => {
+      const testScript = `
+        pm.test('Status is 404', () => {
+          pm.response.to.have.status(404);
+        });
+      `;
+
+      const result = await client.sendRequest({
+        request: {
+          id: 'req-1',
+          name: 'Test Request',
+          method: 'GET',
+          url: 'https://httpbin.org/get',
+          headers: {},
+          createdAt: new Date(),
+          updatedAt: new Date(),
+        },
+        testScript,
+      });
+
+      expect(result.response.status).toBe(200);
+      expect(result.scriptOutput?.test?.[0].passed).toBe(false);
+      expect(result.scriptOutput?.test?.[0].error).toContain('Expected status 404');
+    });
+
+    it('should extract data with test scripts', async () => {
+      const testScript = `
+        const json = pm.response.json();
+        pm.environment.set('extractedUrl', json.url);
+
+        pm.test('Data extracted', () => {
+          pm.expect(pm.environment.get('extractedUrl')).to.be.a('string');
+        });
+      `;
+
+      const result = await client.sendRequest({
+        request: {
+          id: 'req-1',
+          name: 'Test Request',
+          method: 'GET',
+          url: 'https://httpbin.org/get',
+          headers: {},
+          createdAt: new Date(),
+          updatedAt: new Date(),
+        },
+        testScript,
+      });
+
+      expect(result.scriptOutput?.test?.[0].passed).toBe(true);
+      expect(result.logs.some(log => log.includes('extractedUrl'))).toBe(true);
+    });
+
+    it('should combine pre-request and test scripts', async () => {
+      const preRequestScript = `
+        pm.environment.set('customHeader', 'test-value-123');
+      `;
+
+      const testScript = `
+        const json = pm.response.json();
+
+        pm.test('Custom header was sent', () => {
+          pm.expect(json.headers['X-Custom']).to.equal('test-value-123');
+        });
+      `;
+
+      const result = await client.sendRequest({
+        request: {
+          id: 'req-1',
+          name: 'Test Request',
+          method: 'GET',
+          url: 'https://httpbin.org/headers',
+          headers: { 'X-Custom': '{{customHeader}}' },
+          createdAt: new Date(),
+          updatedAt: new Date(),
+        },
+        preRequestScript,
+        testScript,
+      });
+
+      expect(result.scriptOutput?.test?.[0].passed).toBe(true);
+    });
+  });
+
   describe('Content Types', () => {
     it('should handle form-data', async () => {
       const formData = new URLSearchParams();

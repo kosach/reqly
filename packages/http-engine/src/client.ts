@@ -6,7 +6,7 @@
 import axios, { AxiosError, AxiosRequestConfig, AxiosResponse } from 'axios';
 import type { Request, Response, Environment, Variable, AuthConfig } from '@reqly/types';
 import { interpolateVariables } from './variables';
-import { executePreRequestScript } from './scripts';
+import { executePreRequestScript, executeTestScript } from './scripts';
 import { applyAuth, applyAuthToUrl } from './auth';
 
 export interface RequestContext {
@@ -131,9 +131,26 @@ export class HTTPClient {
 
       logs.push(`[${new Date().toISOString()}] Response size: ${response.size} bytes`);
 
+      // Execute test script if provided
+      let testResults;
+      if (context.testScript) {
+        logs.push(`[${new Date().toISOString()}] Executing test script`);
+        const testScriptResult = await executeTestScript(
+          context.testScript,
+          response,
+          scriptEnvironment
+        );
+        logs.push(...testScriptResult.logs);
+        testResults = testScriptResult.tests;
+        scriptEnvironment = { ...scriptEnvironment, ...testScriptResult.environment };
+      }
+
       return {
         response,
         logs,
+        scriptOutput: {
+          test: testResults,
+        },
       };
     } catch (error) {
       const responseTime = Date.now() - startTime;
