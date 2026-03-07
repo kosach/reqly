@@ -1,6 +1,10 @@
 # Reqly
 ## AI-First API Testing Tool with MCP Protocol
 
+[![CI](https://github.com/kosach/reqly/actions/workflows/ci.yml/badge.svg)](https://github.com/kosach/reqly/actions/workflows/ci.yml)
+[![Build](https://github.com/kosach/reqly/actions/workflows/build.yml/badge.svg)](https://github.com/kosach/reqly/actions/workflows/build.yml)
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
+
 *Request elegantly* — AI-native API testing and development platform built on Model Context Protocol (MCP).
 
 **Research Date:** March 4-5, 2026  
