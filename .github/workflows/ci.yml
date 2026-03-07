@@ -1,0 +1,123 @@
+name: CI
+
+on:
+  push:
+    branches: [main, develop]
+  pull_request:
+    branches: [main, develop]
+
+jobs:
+  test:
+    name: Test (Node ${{ matrix.node-version }})
+    runs-on: ubuntu-latest
+    
+    strategy:
+      matrix:
+        node-version: [18, 20]
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 8
+      
+      - name: Setup Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: 'pnpm'
+      
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+      
+      - name: Run TypeScript type checks
+        run: pnpm typecheck
+      
+      - name: Run linters
+        run: pnpm lint
+      
+      - name: Run database tests
+        run: pnpm --filter @reqly/database test
+      
+      - name: Run HTTP engine tests
+        run: pnpm --filter @reqly/http-engine test
+      
+      - name: Run MCP server tests
+        run: pnpm --filter @reqly/mcp-server test
+      
+      - name: Run desktop E2E tests
+        run: |
+          pnpm --filter @reqly/desktop exec playwright install --with-deps chromium
+          pnpm --filter @reqly/desktop test:e2e
+      
+      - name: Upload E2E test results
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: playwright-report-node-${{ matrix.node-version }}
+          path: apps/desktop/playwright-report/
+          retention-days: 7
+
+  lint-commits:
+    name: Lint Commits
+    runs-on: ubuntu-latest
+    if: github.event_name == 'pull_request'
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      
+      - name: Check commit messages
+        run: |
+          # Simple check for AI mentions in commit messages
+          if git log origin/${{ github.base_ref }}..${{ github.sha }} --pretty=format:"%s %b" | grep -iE '(GPT|Claude|Gemini|LLM|AI generated|automated|bot|agent)'; then
+            echo "Error: Found AI mentions in commit messages"
+            exit 1
+          fi
+          echo "Commit messages look good!"
+
+  code-quality:
+    name: Code Quality Check
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 8
+      
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'pnpm'
+      
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+      
+      - name: Check for console.log statements
+        run: |
+          if grep -r "console\.log" packages/*/src --exclude="*.test.ts" --exclude="*.spec.ts"; then
+            echo "Warning: Found console.log statements in production code"
+            # Don't fail, just warn
+          fi
+      
+      - name: Verify TypeScript strict mode
+        run: |
+          for pkg in packages/*/tsconfig.json apps/*/tsconfig.json; do
+            if [ -f "$pkg" ]; then
+              if ! grep -q '"strict": true' "$pkg"; then
+                echo "Error: $pkg does not have strict mode enabled"
+                exit 1
+              fi
+            fi
+          done
+          echo "All packages have TypeScript strict mode enabled"
