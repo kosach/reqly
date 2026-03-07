@@ -146,8 +146,9 @@ reqly/                                 # Monorepo root
 │   └── desktop/                      # Tauri + React desktop app
 ├── packages/
 │   ├── types/                        # Shared TypeScript types
-│   ├── mcp-server/                   # MCP protocol server
-│   └── database/                     # SQLite database layer
+│   ├── database/                     # SQLite database layer
+│   ├── http-engine/                  # HTTP client with scripting support
+│   └── mcp-server/                   # MCP protocol server
 ├── docs/
 │   ├── research/                     # Research (Gemini agents)
 │   │   ├── api-testing-features.md  # Feature analysis
