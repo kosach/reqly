@@ -1,0 +1,24 @@
+{
+  "name": "@reqly/http-engine",
+  "version": "0.1.0",
+  "description": "HTTP request engine with variable interpolation and scripting support",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsc --watch",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "test:e2e": "vitest run --testPathPattern=e2e",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@reqly/types": "workspace:*",
+    "axios": "^1.6.0"
+  },
+  "devDependencies": {
+    "@types/node": "^20.0.0",
+    "typescript": "^5.3.0",
+    "vitest": "^1.0.0"
+  }
+}
