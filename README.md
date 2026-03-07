@@ -16,6 +16,7 @@
 - ✅ **Phase 2:** HTTP Engine (axios + scripting + tests) - Complete (Mar 7, 11:00)
 - ✅ **Phase 3:** MCP Server (4 core tools + E2E tests) - Complete (Mar 7, 11:10)
 - ✅ **Phase 4:** Basic UI (React + Tauri) - Complete (Mar 7, 11:30)
+- ✅ **Phase 5:** CI/CD Pipeline (GitHub Actions + Tauri builds) - Complete (Mar 7, 11:25)
 
 ---
 
@@ -193,7 +194,38 @@ pnpm build
 pnpm dev
 ```
 
-See [CONTRIBUTING.md](CONTRIBUTING.md) for detailed development guide.
+See [CONTRIBUTING.md](CONTRIBUTING.md) and [docs/DEVELOPMENT.md](docs/DEVELOPMENT.md) for detailed development guides.
+
+---
+
+## 🔄 CI/CD Pipeline
+
+Reqly uses GitHub Actions for continuous integration and deployment:
+
+### Automated Testing
+- **Multi-version testing**: Node.js 18 and 20
+- **All package tests**: Database, HTTP Engine, MCP Server, Desktop UI
+- **E2E tests**: Playwright tests with real HTTP calls
+- **Code quality**: TypeScript strict mode, linting, commit message validation
+
+### Automated Builds
+- **Linux AppImage**: Portable application for all Linux distributions
+- **Debian Package**: `.deb` for Debian/Ubuntu-based systems
+- **Dependency caching**: Fast builds with pnpm and Rust cache
+- **Artifact retention**: 30 days for build artifacts
+
+### Release Automation
+- **Tag-based releases**: Push a tag like `v0.1.0` to trigger release
+- **Automated changelog**: Generated from git commits or CHANGELOG.md
+- **Multi-format artifacts**: AppImage and .deb packages
+- **GitHub Releases**: Automatic creation with downloadable assets
+
+### Workflow Files
+- `.github/workflows/ci.yml` - Continuous integration (tests, quality checks)
+- `.github/workflows/build.yml` - Build Tauri desktop app
+- `.github/workflows/release.yml` - Create releases with artifacts
+
+See [docs/DEVELOPMENT.md](docs/DEVELOPMENT.md#cicd-pipeline) for detailed CI/CD documentation.
 
 ---
 
