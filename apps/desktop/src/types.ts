@@ -1,4 +1,4 @@
-import type { Collection, Request, Environment } from '@reqly/types'
+import type { Collection, Request, Environment, Variable } from '@reqly/types'
 
 export interface UIState {
   selectedCollectionId: string | null
@@ -15,4 +15,4 @@ export interface ResponseData {
   time: number
 }
 
-export { Collection, Request, Environment }
+export { Collection, Request, Environment, Variable }

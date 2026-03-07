@@ -1,14 +1,12 @@
 import ReqlyDatabase from '@reqly/database'
-import { homedir } from 'os'
-import { join } from 'path'
 
 let dbInstance: ReqlyDatabase | null = null
 
 export function getDatabase(): ReqlyDatabase {
   if (!dbInstance) {
-    // Store database in user's home directory
-    const dbPath = join(homedir(), '.reqly', 'reqly.db')
-    dbInstance = new ReqlyDatabase(dbPath)
+    // Use in-memory database for now
+    // TODO: Use Tauri API to get proper app data directory
+    dbInstance = new ReqlyDatabase(':memory:')
   }
   return dbInstance
 }

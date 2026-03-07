@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import { CollectionTree } from './components/CollectionTree'
 import { RequestBuilder } from './components/RequestBuilder'
 import { ResponseViewer } from './components/ResponseViewer'
@@ -66,9 +66,9 @@ function App() {
             selectedRequestId={selectedRequestId}
             onSelectCollection={setSelectedCollectionId}
             onSelectRequest={setSelectedRequestId}
-            onCreateCollection={createCollection}
+            onCreateCollection={async (name) => { await createCollection(name) }}
             onDeleteCollection={deleteCollection}
-            onCreateRequest={createRequest}
+            onCreateRequest={async (name) => { await createRequest(name) }}
             onDeleteRequest={deleteRequest}
             loading={collectionsLoading || requestsLoading}
           />

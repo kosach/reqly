@@ -26,9 +26,17 @@ export function useEnvironments() {
   const createEnvironment = async (name: string, variables?: Record<string, string>) => {
     try {
       const db = getDatabase()
+      const variableArray = variables 
+        ? Object.entries(variables).map(([key, value]) => ({ 
+            key, 
+            value, 
+            type: 'default' as const 
+          }))
+        : []
+      
       const newEnv = db.createEnvironment({
         name,
-        variables: variables || {},
+        variables: variableArray,
       })
       setEnvironments(prev => [...prev, newEnv])
       return newEnv

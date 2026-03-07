@@ -87,15 +87,13 @@ export function useRequests(collectionId: string | null) {
       const request = db.getRequest(requestId)
       if (!request) throw new Error('Request not found')
 
-      const environment = environmentId ? db.getEnvironment(environmentId) : undefined
-      const collection = request.collectionId ? db.getCollection(request.collectionId) : undefined
+      const environment = environmentId ? db.getEnvironment(environmentId) || undefined : undefined
+      const collection = request.collectionId ? db.getCollection(request.collectionId) || undefined : undefined
 
       const result = await httpClient.sendRequest({
         request,
         environment,
-        collectionVariables: collection?.variables?.default 
-          ? Object.entries(collection.variables.default).map(([key, value]) => ({ key, value, enabled: true }))
-          : undefined,
+        collectionVariables: collection?.variables || undefined,
         collectionAuth: collection?.auth,
       })
 

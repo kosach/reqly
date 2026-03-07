@@ -12,15 +12,15 @@ const HTTP_METHODS = ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'HEAD', 'OPTIONS'
 
 export function RequestBuilder({ request, onUpdate, onSend }: RequestBuilderProps) {
   const [activeTab, setActiveTab] = useState<'headers' | 'body'>('headers')
-  const [method, setMethod] = useState(request.method)
-  const [url, setUrl] = useState(request.url)
+  const [method, setMethod] = useState<Request['method']>(request.method)
+  const [url, setUrl] = useState(request.url || '')
   const [headers, setHeaders] = useState<Record<string, string>>(request.headers || {})
   const [body, setBody] = useState(request.body || '')
   const [isSending, setIsSending] = useState(false)
 
   const handleUpdateMethod = (newMethod: string) => {
-    setMethod(newMethod)
-    onUpdate(request.id, { method: newMethod })
+    setMethod(newMethod as Request['method'])
+    onUpdate(request.id, { method: newMethod as Request['method'] })
   }
 
   const handleUpdateUrl = () => {
@@ -46,7 +46,7 @@ export function RequestBuilder({ request, onUpdate, onSend }: RequestBuilderProp
   const handleUpdateHeaderKey = (oldKey: string, newKey: string) => {
     const newHeaders = { ...headers }
     if (oldKey !== newKey) {
-      const value = newHeaders[oldKey]
+      const value = newHeaders[oldKey] || ''
       delete newHeaders[oldKey]
       if (newKey) {
         newHeaders[newKey] = value
@@ -56,7 +56,9 @@ export function RequestBuilder({ request, onUpdate, onSend }: RequestBuilderProp
   }
 
   const handleUpdateHeaderValue = (key: string, value: string) => {
-    setHeaders({ ...headers, [key]: value })
+    if (key) {
+      setHeaders({ ...headers, [key]: value })
+    }
   }
 
   const handleDeleteHeader = (key: string) => {
@@ -176,13 +178,12 @@ export function RequestBuilder({ request, onUpdate, onSend }: RequestBuilderProp
             </button>
           </div>
         ) : (
-          <div className="h-full">
+          <div className="h-full" onBlur={handleUpdateBody}>
             <Editor
               height="100%"
               defaultLanguage="json"
               value={body}
               onChange={(value) => setBody(value || '')}
-              onBlur={handleUpdateBody}
               theme="vs-light"
               options={{
                 minimap: { enabled: false },

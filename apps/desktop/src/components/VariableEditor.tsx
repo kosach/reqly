@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { getDatabase } from '../lib/database'
-import type { Collection } from '../types'
+import type { Collection, Variable } from '../types'
 
 interface VariableEditorProps {
   collection: Collection
@@ -8,9 +8,11 @@ interface VariableEditorProps {
 }
 
 export function VariableEditor({ collection, onClose }: VariableEditorProps) {
-  const [variables, setVariables] = useState<Record<string, string>>(
-    collection.variables?.default || {}
-  )
+  const defaultVars = (collection.variables || [])
+    .filter(v => v.type === 'default')
+    .reduce((acc, v) => ({ ...acc, [v.key]: v.value }), {} as Record<string, string>)
+  
+  const [variables, setVariables] = useState<Record<string, string>>(defaultVars)
 
   const handleAddVariable = () => {
     setVariables({ ...variables, '': '' })
@@ -19,7 +21,7 @@ export function VariableEditor({ collection, onClose }: VariableEditorProps) {
   const handleUpdateKey = (oldKey: string, newKey: string) => {
     const newVariables = { ...variables }
     if (oldKey !== newKey) {
-      const value = newVariables[oldKey]
+      const value = newVariables[oldKey] || ''
       delete newVariables[oldKey]
       if (newKey) {
         newVariables[newKey] = value
@@ -41,11 +43,14 @@ export function VariableEditor({ collection, onClose }: VariableEditorProps) {
   const handleSave = async () => {
     try {
       const db = getDatabase()
+      const variableArray: Variable[] = Object.entries(variables).map(([key, value]) => ({
+        key,
+        value,
+        type: 'default' as const,
+      }))
+      
       db.updateCollection(collection.id, {
-        variables: {
-          ...collection.variables,
-          default: variables,
-        },
+        variables: variableArray,
       })
       onClose()
     } catch (error) {
