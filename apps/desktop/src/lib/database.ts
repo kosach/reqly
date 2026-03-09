@@ -1,4 +1,4 @@
-import ReqlyDatabase from '@reqly/database'
+import { ReqlyDatabase } from '@reqly/database'
 
 let dbInstance: ReqlyDatabase | null = null
 
