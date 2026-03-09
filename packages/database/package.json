@@ -13,7 +13,8 @@
   },
   "dependencies": {
     "@reqly/types": "workspace:*",
-    "better-sqlite3": "^9.0.0"
+    "better-sqlite3": "^9.0.0",
+    "uuid": "^13.0.0"
   },
   "devDependencies": {
     "@types/better-sqlite3": "^7.6.0",

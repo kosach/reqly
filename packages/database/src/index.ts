@@ -4,7 +4,7 @@
 
 import Database from 'better-sqlite3';
 import type { Collection, Request, Environment, Variable, AuthConfig } from '@reqly/types';
-import { randomUUID } from 'crypto';
+import { v4 as uuidv4 } from 'uuid';
 
 export class ReqlyDatabase {
   private db: Database.Database;
@@ -61,7 +61,7 @@ export class ReqlyDatabase {
   createCollection(data: Omit<Collection, 'id' | 'createdAt' | 'updatedAt'>): Collection {
     const now = Date.now();
     const collection: Collection = {
-      id: randomUUID(),
+      id: uuidv4(),
       ...data,
       createdAt: new Date(now),
       updatedAt: new Date(now),
@@ -158,7 +158,7 @@ export class ReqlyDatabase {
   createRequest(data: Omit<Request, 'id' | 'createdAt' | 'updatedAt'>): Request {
     const now = Date.now();
     const request: Request = {
-      id: randomUUID(),
+      id: uuidv4(),
       ...data,
       createdAt: new Date(now),
       updatedAt: new Date(now),
@@ -279,7 +279,7 @@ export class ReqlyDatabase {
   createEnvironment(data: Omit<Environment, 'id' | 'createdAt' | 'updatedAt'>): Environment {
     const now = Date.now();
     const environment: Environment = {
-      id: randomUUID(),
+      id: uuidv4(),
       ...data,
       createdAt: new Date(now),
       updatedAt: new Date(now),
